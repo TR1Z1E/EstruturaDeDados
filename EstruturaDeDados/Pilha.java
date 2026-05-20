@@ -38,4 +38,17 @@ public class Pilha {
             System.out.println("A pilha está vazia!");
         }
     }
+    public String listar() {
+    String resultado = "";
+
+    for (int i = topo; i >= 0; i--) {
+        resultado += dados[i].toString() + "\n";
+    }
+
+    if (resultado.equals("")) {
+        return "Compartimento vazio!";
+    }
+
+    return resultado;
+}
 }
