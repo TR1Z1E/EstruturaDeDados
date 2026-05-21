@@ -11,9 +11,9 @@ public class Pilha {
         if (topo < dados.length - 1) {
             topo++;
             dados[topo] = medicamento;
-            System.out.println("Colocou o medicamento " + medicamento.getNomeMedicamento() + " na pilha.");
+            System.out.println("Colocou o medicamento " + medicamento.getNomeMedicamento() + " na caixa.");
         } else {
-            System.out.println("A pilha já está cheia, não é possível adicionar mais!");
+            System.out.println("A caixa já está cheia, não é possível adicionar mais!");
         }
     }
 
@@ -23,19 +23,46 @@ public class Pilha {
             topo--;
             return medicamentoRemovido;
         } else {
-            System.out.println("A pilha está vazia, não é possível remover!");
+            System.out.println("A caixa está vazia, não é possível remover!");
             return null;
         }
     }
 
+    public Medicamento removerEspecifico(String nomeMedicamento) {
+        if (topo < 0){
+            System.out.println("A caixa está vazia, não é possível remover!");
+            return null;
+        }
+
+        Pilha pilhaTemp = new Pilha(dados.length);
+        Medicamento encontrado = null;
+
+        while (this.topo >= 0) {
+            Medicamento medicamentoAtual = this.remover();
+            if (medicamentoAtual.getNomeMedicamento().equalsIgnoreCase(nomeMedicamento)) {
+                encontrado = medicamentoAtual;
+                break;
+            } else {
+                pilhaTemp.adicionar(medicamentoAtual);
+            }
+        }
+
+        System.out.println("Reorganizando a caixa...");
+        while (pilhaTemp.topo >= 0) {
+            this.adicionar(pilhaTemp.remover());
+        }
+
+        return encontrado;
+    }
+
     public void exibir() {
         if (topo >= 0) {
-            System.out.println("Conteúdo da pilha:");
+            System.out.println("Conteúdo da caixa:");
             for (int i = topo; i >= 0; i--) {
                 System.out.println(dados[i].toString());
             }
         } else {
-            System.out.println("A pilha está vazia!");
+            System.out.println("A caixa está vazia!");
         }
     }
     public String listar() {
